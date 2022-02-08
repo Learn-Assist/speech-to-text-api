@@ -8,6 +8,11 @@ import helper_functions as hf
 app = Flask(__name__)
 r = sr.Recognizer()
 CORS(app)
+
+@app.route('/')
+def index():
+    return 'Hello from LearnAssist text to speech API!'
+
 @app.route('/audio', methods=['GET', 'POST'])
 def welcome():
     result =''
