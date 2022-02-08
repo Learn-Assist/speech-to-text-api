@@ -13,8 +13,6 @@ RUN apt-get install -y ffmpeg
 
 COPY . /app/
 
-ENV PORT = 3005
+RUN mkdir audio
 
-EXPOSE 3005
-
-CMD ["python","app.py"]
+CMD ["python3","app.py"]
