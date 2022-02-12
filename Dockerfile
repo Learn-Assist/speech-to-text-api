@@ -1,6 +1,6 @@
-FROM python:3.8.0-buster
+FROM python:3.8.0-slim
 
-WORKDIR /app
+WORKDIR /flask-production
 
 COPY requirements.txt .
 
@@ -9,10 +9,11 @@ RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
 RUN apt-get -y update
+
 RUN apt-get install -y ffmpeg
 
-COPY . /app/
+COPY . /flask-production/
 
-RUN mkdir audio
+EXPOSE 3005
 
-CMD ["python3","app.py"]
+CMD [ "python", "-m" , "flask", "run", "--host=0.0.0.0" ]

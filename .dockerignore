@@ -1,4 +1,4 @@
-env
+venv
 audio/**.*
 __pycache__
 *.wav
