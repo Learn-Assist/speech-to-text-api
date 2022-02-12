@@ -1,5 +1,6 @@
 venv
-audio/**.*
+audio/**.ogg
+audio/**.wav
 __pycache__
 *.wav
 .js

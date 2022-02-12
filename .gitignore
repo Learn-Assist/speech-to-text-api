@@ -1,5 +1,6 @@
 venv
 __pycache__
-audio/**.*
+audio/**.ogg
+audio/**.wav
 *.wav
 *.exe
