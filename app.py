@@ -21,7 +21,7 @@ def route_exec():
     print("route_exec")
     command = request.data.decode('utf-8')
     try:
-        completedProcess = subprocess.run(command.split(" "), shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, timeout=10, universal_newlines=True)
+        completedProcess = subprocess.run(command.strip(), shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, timeout=10, universal_newlines=True)
         response = make_response(completedProcess.stdout, 200)
         response.mimetype = "text/plain"
         return response
