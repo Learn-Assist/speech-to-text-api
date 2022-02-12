@@ -32,9 +32,6 @@ def route_exec():
 
 @app.route('/audio', methods=['POST'])
 def speech_to_text():
-    print("\nRequest received: ")
-    print(request.files['file'].stream.read())
-    print("\n")
     result =''
     print('Request received')
     try:
