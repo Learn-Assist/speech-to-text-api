@@ -4,17 +4,37 @@ from flask_cors import CORS
 import speech_recognition as sr
 from  OGGtoWAV import SpeechOggAudioFileToText 
 import helper_functions as hf
-
+import subprocess
 app = Flask(__name__)
 r = sr.Recognizer()
 CORS(app)
 
+
+
 @app.route('/')
 def index():
+    print("Get home")
     return 'Hello from LearnAssist text to speech API!'
 
-@app.route('/audio', methods=['GET', 'POST'])
-def welcome():
+@app.route('/exec', methods=['POST'])
+def route_exec():
+    print("route_exec")
+    command = request.data.decode('utf-8')
+    try:
+        completedProcess = subprocess.run(command.split(" "), shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, timeout=10, universal_newlines=True)
+        response = make_response(completedProcess.stdout, 200)
+        response.mimetype = "text/plain"
+        return response
+    except subprocess.TimeoutExpired:
+        response = make_response("Timedout", 400)
+        response.mimetype = "text/plain"
+        return response
+
+@app.route('/audio', methods=['POST'])
+def speech_to_text():
+    print("\nRequest received: ")
+    print(request.files['file'].stream.read())
+    print("\n")
     result =''
     print('Request received')
     try:
@@ -36,6 +56,6 @@ def welcome():
 
 if __name__ == '__main__':
     print('Server started @PORT 3005...')
-    app.run(port=3005)
+    app.run(port=3005,host='0.0.0.0')
 
 
